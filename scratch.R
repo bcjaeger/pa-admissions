@@ -4,7 +4,7 @@ logit <- function(x) log(x / (1-x))
 
 logit_inv <- function(x) exp(x) / (1 + exp(x))
 
-n_obs <- 1000
+n_apply <- 1000
 
 # assumption:
 # baseline chance of passing qualification exam
@@ -32,7 +32,7 @@ mat_corr
 
 mat_cov <- MBESS::cor2cov(cor.mat = mat_corr, sd = c(50, 0.5, 0.3))
 
-mat_application <- rmvnorm(n = n_obs,
+mat_application <- rmvnorm(n = n_apply,
                            mean = c(300, 3, beta_intercept),
                            sigma = mat_cov)
 
