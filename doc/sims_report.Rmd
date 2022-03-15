@@ -1,0 +1,50 @@
+---
+title: "Untitled Draft"
+author: "Report Author"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+```
+
+```{r load-targets, include=FALSE}
+
+tar_load(names = c(sims_smry))
+
+
+```
+
+## Data simulation
+
+## Results
+
+```{r}
+
+library(gt)
+library(table.glue)
+
+sims_smry |> 
+ ungroup() |> 
+ mutate(
+  strategy = recode(strategy, 
+                    'all' = 'Admit all applicants',
+                    'gpa_gt_3' = 'Require GPA \u2265 3.0',
+                    'gre_gt_75pct' = 'Require GRE \u2265 75th percentile'),
+  group = recode(
+   paste(corr_gre_pass, base_prob, sep = '_'),
+   "0_0.7" = "No GRE effect, base prob = 0.7", 
+   "0_0.85" = "No GRE effect, base prob = 0.85", 
+   "0.2_0.7" = "corr(GRE, pass) = 0.2, base prob = 0.7", 
+   "0.2_0.85" = "corr(GRE, pass) = 0.2, base prob = 0.85"
+  ),
+  across(starts_with("n_"), table_value),
+  pass_prob = table_value(100 * pass_prob)
+ ) |> 
+ select(strategy, group, pass_prob, n_admit, n_pass) |> 
+ gt(rowname_col = 'strategy', groupname_col = 'group')
+
+```
+

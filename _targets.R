@@ -33,6 +33,9 @@ tar_plan(
  tar_target(
   sims_smry,
   sim_summarize(sims_combined)
- )
+ ),
+
+ tar_render(sims_report, "doc/sims_report.Rmd")
+
 
 )
