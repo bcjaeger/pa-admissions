@@ -35,7 +35,7 @@ tar_plan(
   sim_summarize(sims_combined)
  ),
 
- tar_render(sims_report, "doc/sims_report.Rmd")
+ tar_render(sims_report, "docs/sims_report.Rmd")
 
 
 )

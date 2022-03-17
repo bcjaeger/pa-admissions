@@ -1,6 +1,6 @@
 ---
-title: "Untitled Draft"
-author: "Report Author"
+title: "Simulation study report, PA admissions"
+author: "Byron C. Jaeger, PhD"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: html_document
 ---
@@ -13,7 +13,6 @@ knitr::opts_chunk$set(echo = FALSE)
 ```{r load-targets, include=FALSE}
 
 tar_load(names = c(sims_smry, sims_combined))
-
 
 ```
 
@@ -31,13 +30,13 @@ __Step 1__: set the correlation between covariates in the simulated data.
 
 - Between GRE score and GPA = 0.2.
 - Between GPA and probability of passing the qualifier exam = 0.2.
-- Between GRE score and probability of passing the qualifier exam = <varying>.
+- Between GRE score and probability of passing the qualifier exam = _varying_.
 
 _Step 2_: set the mean and standard deviation (SD) of each covariate.
 
 - GRE score: mean = 300, SD = 50
 - GPA: mean = 3.0, SD = 0.5
-- probability of passing the qualifier exam: mean = <varying>, SD = 0.3
+- probability of passing the qualifier exam: mean = _varying_, SD = 0.3
 
 ## Data analysis
 

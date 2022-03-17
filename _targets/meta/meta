@@ -89,4 +89,4 @@ logit_inv|function|d42f2e267dbac39a||||||||||||||
 sims|object|ec5739e5102f6a70||||||||||||||
 sim_summarize|function|a218369be31484d9||||||||||||||
 sim_run|function|cc23f3f66f3030d2||||||||||||||
-sims_report|stem|633f49c1e65ebc5a|3e4c908c1cb330c6|d1da69a255bf8657|564125600|doc/sims_report.html*doc/sims_report.Rmd|t19068.5033255336s|c587b65149643a2c|745267|file|vector|||2.07||
+sims_report|stem|f7f97affd685f8ea|1c48cf992e676049|d1da69a255bf8657|564125600|docs/sims_report.html*docs/sims_report.Rmd|t19068.5078622724s|fbef2e829e6b1d1a|745372|file|vector|||2.1||
