@@ -5,7 +5,7 @@ source("./packages.R")
 lapply(list.files("./R", full.names = TRUE), source)
 
 inputs_sim <- expand_grid(n_apply = 5000,
-                          run_seed = 1:10,
+                          run_seed = 1:100,
                           corr_gre_pass = c(0, 0.20),
                           corr_gpa_pass = 0.20,
                           corr_gre_gpa = 0.20,
