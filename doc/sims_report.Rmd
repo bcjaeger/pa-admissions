@@ -12,12 +12,42 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ```{r load-targets, include=FALSE}
 
-tar_load(names = c(sims_smry))
+tar_load(names = c(sims_smry, sims_combined))
 
 
 ```
 
 ## Data simulation
+
+__Step 0__: determine which covariates to simulate.
+
+- GRE Score
+- GPA
+- logit-transformed probability of passing (normally distributed)
+
+An assumption we make is that these three covariates are normally distributed with some correlation between each one (i.e., multivariate normal).
+
+__Step 1__: set the correlation between covariates in the simulated data.
+
+- Between GRE score and GPA = 0.2.
+- Between GPA and probability of passing the qualifier exam = 0.2.
+- Between GRE score and probability of passing the qualifier exam = <varying>.
+
+_Step 2_: set the mean and standard deviation (SD) of each covariate.
+
+- GRE score: mean = 300, SD = 50
+- GPA: mean = 3.0, SD = 0.5
+- probability of passing the qualifier exam: mean = <varying>, SD = 0.3
+
+## Data analysis
+
+We consider three different strategies to accept applicants into the program. None of these strategies are realistic, but are used for illustration purposes.
+
+1. Accept everyone. 
+1. Accept applicants with GPA ≥ 3.
+1. Accept applicants with GRE score ≥ 75th percentile of applicants.
+
+For each strategy, we compute the median probability of passing the exam, the number of people admitted, and the expected number who would pass the exam. 
 
 ## Results
 
@@ -35,16 +65,20 @@ sims_smry |>
                     'gre_gt_75pct' = 'Require GRE \u2265 75th percentile'),
   group = recode(
    paste(corr_gre_pass, base_prob, sep = '_'),
-   "0_0.7" = "No GRE effect, base prob = 0.7", 
-   "0_0.85" = "No GRE effect, base prob = 0.85", 
-   "0.2_0.7" = "corr(GRE, pass) = 0.2, base prob = 0.7", 
-   "0.2_0.85" = "corr(GRE, pass) = 0.2, base prob = 0.85"
+   "0_0.7" = "No GRE effect, baseline probability of passing exam = 70", 
+   "0_0.85" = "No GRE effect, baseline probability of passing exam = 85", 
+   "0.2_0.7" = "corr(GRE, pass) = 0.2, baseline probability of passing exam = 70", 
+   "0.2_0.85" = "corr(GRE, pass) = 0.2, baseline probability of passing exam = 85"
   ),
   across(starts_with("n_"), table_value),
   pass_prob = table_value(100 * pass_prob)
  ) |> 
  select(strategy, group, pass_prob, n_admit, n_pass) |> 
- gt(rowname_col = 'strategy', groupname_col = 'group')
+ gt(rowname_col = 'strategy', groupname_col = 'group') |> 
+ cols_label(pass_prob = 'Median probability of passing',
+            n_admit = 'Number admitted',
+            n_pass = 'Expected number to pass') |> 
+ cols_align('center')
 
 ```
 
